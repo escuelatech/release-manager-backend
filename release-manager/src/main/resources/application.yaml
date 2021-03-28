@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: release-manager
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+release-manager:
+  api-user: <API-USER>
+  api-key: VAysxJZBfMmWOHJF0liO
+
+
+---
+spring:
+  profiles:
+    - dev
+
+---
+spring:
+  profiles:
+    - prod
