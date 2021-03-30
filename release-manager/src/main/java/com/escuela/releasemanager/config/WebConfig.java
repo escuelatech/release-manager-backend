@@ -10,15 +10,11 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class WebConfig {
 
-    @Autowired
-    ReleaseManagerProperties properties;
-
     @Bean("restClient")
     @Primary
     public RestTemplate restClient() {
-        RestTemplate restTemplate = new RestTemplateBuilder()
-                .basicAuthentication(properties.getApiUser(), properties.getApiKey()).build();
-        return restTemplate;
+
+        return new RestTemplate();
     }
 
 }

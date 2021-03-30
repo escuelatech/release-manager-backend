@@ -5,11 +5,11 @@ spring:
     active: dev
 
 server:
-  port: 8080
+  port: 9090
 
 release-manager:
-  api-user: maduranga.bbnt@gmail.com
-  api-key: KqjyNZaozz0EurFgtLWO0826
+  jira-api-user: maduranga.bbnt@gmail.com
+  jira-api-key: KqjyNZaozz0EurFgtLWO0826
 
 
 ---

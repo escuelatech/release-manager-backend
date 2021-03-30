@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties
 public class ReleaseManagerProperties {
 
-    @Value("${release-manager.api-user}")
+    @Value("${release-manager.jira-api-user}")
     private  String apiUser;
 
-    @Value("${release-manager.api-key}")
+    @Value("${release-manager.jira-api-key}")
     private  String apiKey;
 
 
