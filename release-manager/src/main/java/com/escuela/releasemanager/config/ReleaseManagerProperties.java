@@ -9,29 +9,51 @@ import org.springframework.context.annotation.Configuration;
 public class ReleaseManagerProperties {
 
     @Value("${release-manager.jira-api-user}")
-    private  String apiUser;
+    private  String jiraApiUser;
 
     @Value("${release-manager.jira-api-key}")
-    private  String apiKey;
+    private  String jiraApiKey;
+
+    @Value("${release-manager.github-api-user}")
+    private  String githubApiUser;
+
+    @Value("${release-manager.github-api-key}")
+    private  String githubApiKey;
 
 
     public ReleaseManagerProperties() {
     }
 
-    public String getApiUser() {
-        return apiUser;
+    public String getJiraApiUser() {
+        return jiraApiUser;
     }
 
-    public void setApiUser(String apiUser) {
-        this.apiUser = apiUser;
+    public void setJiraApiUser(String jiraApiUser) {
+        this.jiraApiUser = jiraApiUser;
     }
 
-    public String getApiKey() {
-        return apiKey;
+    public String getJiraApiKey() {
+        return jiraApiKey;
     }
 
 
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
+    public void setJiraApiKey(String jiraApiKey) {
+        this.jiraApiKey = jiraApiKey;
+    }
+
+    public String getGithubApiUser() {
+        return githubApiUser;
+    }
+
+    public void setGithubApiUser(String githubApiUser) {
+        this.githubApiUser = githubApiUser;
+    }
+
+    public String getGithubApiKey() {
+        return githubApiKey;
+    }
+
+    public void setGithubApiKey(String githubApiKey) {
+        this.githubApiKey = githubApiKey;
     }
 }
