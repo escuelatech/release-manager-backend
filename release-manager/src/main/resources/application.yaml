@@ -8,8 +8,8 @@ server:
   port: 9090
 
 release-manager:
-  jira-api-user: <jira-user>
-  jira-api-key: <jirs-access-token>
+  jira-api-user: maduranga.bbnt@gmail.com
+  jira-api-key: KqjyNZaozz0EurFgtLWO0826
   github-api-user: <github-user>
   github-api-key: <github-access-token>
 
