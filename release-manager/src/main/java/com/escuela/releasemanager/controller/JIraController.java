@@ -1,8 +1,7 @@
 package com.escuela.releasemanager.controller;
 
-import com.escuela.releasemanager.api.RepositoryService;
 import com.escuela.releasemanager.model.ProjectModel;
-import com.escuela.releasemanager.model.RepositoryModel;
+import com.escuela.releasemanager.api.JiraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping("repositories")
-public class RepositoryController {
+@RequestMapping("jira")
+public class JIraController {
+
 
     @Autowired
-    RepositoryService repositoryService;
+    JiraService jiraService;
 
-    @GetMapping
-    public ResponseEntity<List<RepositoryModel>> getProjectDetails(){
-        return ResponseEntity.ok(repositoryService.getAllRepositories());
+    @GetMapping("/getall")
+    public ResponseEntity<List<ProjectModel>> getProjectDetails(){
+        return ResponseEntity.ok(jiraService.getAllJiraProjects());
 
     }
 }

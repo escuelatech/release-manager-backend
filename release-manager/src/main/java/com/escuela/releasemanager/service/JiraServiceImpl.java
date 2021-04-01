@@ -1,6 +1,6 @@
 package com.escuela.releasemanager.service;
 
-import com.escuela.releasemanager.api.ProjectService;
+import com.escuela.releasemanager.api.JiraService;
 import com.escuela.releasemanager.config.ReleaseManagerProperties;
 import com.escuela.releasemanager.model.ProjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class ProjectServiceImpl implements ProjectService {
+public class JiraServiceImpl implements JiraService {
 
 
     @Autowired
@@ -25,7 +25,7 @@ public class ProjectServiceImpl implements ProjectService {
     ReleaseManagerProperties properties;
 
     @Override
-    public List<ProjectModel> getAllProjects() {
+    public List<ProjectModel> getAllJiraProjects() {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(properties.getJiraApiUser(), properties.getJiraApiKey());
