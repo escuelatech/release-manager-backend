@@ -2,7 +2,6 @@ package com.escuela.releasemanager.service;
 
 import com.escuela.releasemanager.api.JiraService;
 import com.escuela.releasemanager.config.ReleaseManagerProperties;
-import com.escuela.releasemanager.model.IssueModel;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +38,18 @@ public class JiraServiceImpl implements JiraService {
     }
 
     @Override
-    public IssueSearchModel getProjectIssuesByLabel(String labels) {
+    public IssueSearchModel getProjectIssuesByLabel(String project, String labels) {
 
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
-                .path("/rest/api/2/search").query("jql=labels in ({labels})").buildAndExpand(labels);
+                .path("/rest/api/2/search").query("jql=project={project} AND labels in ({labels})").buildAndExpand(project, labels);
 
         ResponseEntity<IssueSearchModel> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), IssueSearchModel.class);
-  return responseEntity.getBody();
+        return responseEntity.getBody();
 
     }
 
 
-    private HttpHeaders extractAuthHeader(){
+    private HttpHeaders extractAuthHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(properties.getJiraApiUser(), properties.getJiraApiKey());
         return headers;
