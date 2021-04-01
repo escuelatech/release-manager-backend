@@ -10,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,11 @@ public class RepositoryServiceImpl implements GitRepositoryService {
     public List<RepositoryModel> getAllRepositories() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(properties.getGithubApiUser(), properties.getGithubApiKey());
-        ResponseEntity<RepositoryModel[]> responseEntity = restClient.exchange("https://api.github.com/user/repos", HttpMethod.GET, new HttpEntity<>(headers), RepositoryModel[].class);
+
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getGithubApiUrl())
+                .path("/user/repos").build();
+
+        ResponseEntity<RepositoryModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(headers), RepositoryModel[].class);
         return Arrays.asList(responseEntity.getBody());
     }
 }

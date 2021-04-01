@@ -14,11 +14,17 @@ public class ReleaseManagerProperties {
     @Value("${release-manager.jira-api-key}")
     private  String jiraApiKey;
 
+    @Value("${release-manager.jira-api-url}")
+    private  String jiraApiUrl;
+
     @Value("${release-manager.github-api-user}")
     private  String githubApiUser;
 
     @Value("${release-manager.github-api-key}")
     private  String githubApiKey;
+
+    @Value("${release-manager.github-api-url}")
+    private  String githubApiUrl;
 
 
     public ReleaseManagerProperties() {
@@ -55,5 +61,21 @@ public class ReleaseManagerProperties {
 
     public void setGithubApiKey(String githubApiKey) {
         this.githubApiKey = githubApiKey;
+    }
+
+    public String getJiraApiUrl() {
+        return jiraApiUrl;
+    }
+
+    public void setJiraApiUrl(String jiraApiUrl) {
+        this.jiraApiUrl = jiraApiUrl;
+    }
+
+    public String getGithubApiUrl() {
+        return githubApiUrl;
+    }
+
+    public void setGithubApiUrl(String githubApiUrl) {
+        this.githubApiUrl = githubApiUrl;
     }
 }

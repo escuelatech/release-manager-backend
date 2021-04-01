@@ -10,8 +10,10 @@ server:
 release-manager:
   jira-api-user: maduranga.bbnt@gmail.com
   jira-api-key: KqjyNZaozz0EurFgtLWO0826
+  jira-api-url: https://escuelatech.atlassian.net
   github-api-user: <github-user>
   github-api-key: <github-access-token>
+  github-api-url: https://api.github.com
 
 
 ---
