@@ -31,15 +31,17 @@ public class JiraServiceImpl implements JiraService {
     @Override
     public List<ProjectModel> getAllJiraProjects() {
 
-        ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange("https://escuelatech.atlassian.net/rest/api/2/project", HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
+                .path("/rest/api/2/project").build();
+
+        ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
         return Arrays.asList(responseEntity.getBody());
     }
 
     @Override
     public IssueSearchModel getProjectIssuesByLabel(String labels) {
 
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host("escuelatech.atlassian.net")
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
                 .path("/rest/api/2/search").query("jql=labels in ({labels})").buildAndExpand(labels);
 
         ResponseEntity<IssueSearchModel> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), IssueSearchModel.class);
