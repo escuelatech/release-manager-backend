@@ -1,5 +1,6 @@
 package com.escuela.releasemanager.deserializer;
 
+import com.escuela.releasemanager.exceptions.JiraResponseDeserializingException;
 import com.escuela.releasemanager.model.IssueModel;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.fasterxml.jackson.core.JsonParser;
@@ -18,10 +19,15 @@ public class JiraIssueDeserializer extends JsonDeserializer<IssueSearchModel> {
     }
 
     @Override
-    public IssueSearchModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public IssueSearchModel deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)  {
         List<IssueModel> issueList = new ArrayList<>();
         IssueSearchModel issueSearchModel = new IssueSearchModel();
-        JsonNode jiraIssueResponseNode = jsonParser.getCodec().readTree(jsonParser);
+        JsonNode jiraIssueResponseNode = null;
+        try {
+            jiraIssueResponseNode = jsonParser.getCodec().readTree(jsonParser);
+        } catch (IOException e) {
+          throw new JiraResponseDeserializingException("Something went Wrong With Jira Response Deserialization");
+        }
         ArrayNode issueMetadataArray = (ArrayNode) jiraIssueResponseNode.get("issues");
         issueMetadataArray.iterator().forEachRemaining(jsonNode ->
                 {
