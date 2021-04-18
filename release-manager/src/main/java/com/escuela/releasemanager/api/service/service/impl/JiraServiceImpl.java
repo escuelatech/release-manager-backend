@@ -1,6 +1,6 @@
-package com.escuela.releasemanager.service;
+package com.escuela.releasemanager.api.service.service.impl;
 
-import com.escuela.releasemanager.api.JiraService;
+import com.escuela.releasemanager.api.service.JiraService;
 import com.escuela.releasemanager.config.ReleaseManagerProperties;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;
@@ -29,11 +29,9 @@ public class JiraServiceImpl implements JiraService {
 
     @Override
     public List<ProjectModel> getAllJiraProjects() {
-
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
-                .path("/rest/api/2/project").build();
-
-        ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl()).path("/rest/api/2/project").build();
+        ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET,
+                new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
         return Arrays.asList(responseEntity.getBody());
     }
 
@@ -43,9 +41,9 @@ public class JiraServiceImpl implements JiraService {
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
                 .path("/rest/api/2/search").query("jql=project={project} AND labels in ({labels})").buildAndExpand(project, labels);
 
-        ResponseEntity<IssueSearchModel> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), IssueSearchModel.class);
+        ResponseEntity<IssueSearchModel> responseEntity = restClient.exchange(uriComponents.toUriString(),
+                        HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), IssueSearchModel.class);
         return responseEntity.getBody();
-
     }
 
 

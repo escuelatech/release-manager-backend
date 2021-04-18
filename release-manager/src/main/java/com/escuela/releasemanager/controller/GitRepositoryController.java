@@ -1,6 +1,6 @@
 package com.escuela.releasemanager.controller;
 
-import com.escuela.releasemanager.api.GitRepositoryService;
+import com.escuela.releasemanager.api.service.GitRepositoryService;
 import com.escuela.releasemanager.model.RepositoryModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,5 @@ public class GitRepositoryController {
     @GetMapping
     public ResponseEntity<List<RepositoryModel>> getProjectDetails(){
         return ResponseEntity.ok(repositoryService.getAllRepositories());
-
     }
 }

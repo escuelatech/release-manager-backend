@@ -40,10 +40,7 @@ public class JiraIssueDeserializer extends JsonDeserializer<IssueSearchModel> {
                     issueList.add(issueModel);
                 }
         );
-
         issueSearchModel.setIssues(issueList);
-
-
         return issueSearchModel;
     }
 }

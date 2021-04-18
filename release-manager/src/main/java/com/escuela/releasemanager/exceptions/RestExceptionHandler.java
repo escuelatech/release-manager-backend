@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-
+/**
+ *
+ */
 @ControllerAdvice
 public class RestExceptionHandler {
 
@@ -21,7 +23,6 @@ public class RestExceptionHandler {
                 .withCode("ER-501")
                 .withMessage(ex.getMessage())
                 .build();
-
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

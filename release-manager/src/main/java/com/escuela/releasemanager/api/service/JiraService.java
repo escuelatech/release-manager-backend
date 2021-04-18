@@ -1,4 +1,4 @@
-package com.escuela.releasemanager.api;
+package com.escuela.releasemanager.api.service;
 
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;

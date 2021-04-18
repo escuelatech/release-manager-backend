@@ -1,6 +1,6 @@
-package com.escuela.releasemanager.service;
+package com.escuela.releasemanager.api.service.service.impl;
 
-import com.escuela.releasemanager.api.GitRepositoryService;
+import com.escuela.releasemanager.api.service.GitRepositoryService;
 import com.escuela.releasemanager.config.ReleaseManagerProperties;
 import com.escuela.releasemanager.model.RepositoryModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,9 @@ public class RepositoryServiceImpl implements GitRepositoryService {
     public List<RepositoryModel> getAllRepositories() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(properties.getGithubApiUser(), properties.getGithubApiKey());
-
-        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getGithubApiUrl())
-                .path("/user/repos").build();
-
-        ResponseEntity<RepositoryModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET, new HttpEntity<>(headers), RepositoryModel[].class);
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getGithubApiUrl()).path("/user/repos").build();
+        ResponseEntity<RepositoryModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(),
+                HttpMethod.GET, new HttpEntity<>(headers), RepositoryModel[].class);
         return Arrays.asList(responseEntity.getBody());
     }
 }

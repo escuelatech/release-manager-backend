@@ -13,7 +13,6 @@ public class WebConfig {
     @Bean("restClient")
     @Primary
     public RestTemplate restClient() {
-
         return new RestTemplate();
     }
 
