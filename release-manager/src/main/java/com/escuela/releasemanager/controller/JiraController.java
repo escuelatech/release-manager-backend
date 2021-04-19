@@ -3,6 +3,7 @@ package com.escuela.releasemanager.controller;
 import com.escuela.releasemanager.api.service.JiraService;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;
+import com.escuela.releasemanager.model.ResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class JiraController {
     JiraService jiraService;
 
     @GetMapping("/getall")
-    public ResponseEntity<List<ProjectModel>> getProjectDetails() {
+    public ResponseEntity<ResponseModel> getProjectDetails() {
         return ResponseEntity.ok(jiraService.getAllJiraProjects());
     }
 

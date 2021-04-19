@@ -4,6 +4,7 @@ import com.escuela.releasemanager.api.service.JiraService;
 import com.escuela.releasemanager.config.ReleaseManagerProperties;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;
+import com.escuela.releasemanager.model.ResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +21,6 @@ import java.util.List;
 @Component
 public class JiraServiceImpl implements JiraService {
 
-
     @Autowired
     RestTemplate restClient;
 
@@ -28,24 +28,23 @@ public class JiraServiceImpl implements JiraService {
     ReleaseManagerProperties properties;
 
     @Override
-    public List<ProjectModel> getAllJiraProjects() {
+    public ResponseModel getAllJiraProjects() {
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl()).path("/rest/api/2/project").build();
         ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET,
                 new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
-        return Arrays.asList(responseEntity.getBody());
+        ResponseModel reponse = new ResponseModel();
+        reponse.setData(Arrays.asList(responseEntity.getBody()));
+        return reponse;
     }
 
     @Override
     public IssueSearchModel getProjectIssuesByLabel(String project, String labels) {
-
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl())
                 .path("/rest/api/2/search").query("jql=project={project} AND labels in ({labels})").buildAndExpand(project, labels);
-
         ResponseEntity<IssueSearchModel> responseEntity = restClient.exchange(uriComponents.toUriString(),
                         HttpMethod.GET, new HttpEntity<>(extractAuthHeader()), IssueSearchModel.class);
         return responseEntity.getBody();
     }
-
 
     private HttpHeaders extractAuthHeader() {
         HttpHeaders headers = new HttpHeaders();

@@ -31,7 +31,7 @@ public class JiraIssueDeserializer extends JsonDeserializer<IssueSearchModel> {
         ArrayNode issueMetadataArray = (ArrayNode) jiraIssueResponseNode.get("issues");
         issueMetadataArray.iterator().forEachRemaining(jsonNode ->
                 {
-                    var issueModel = IssueModel.builder()
+                    IssueModel issueModel = IssueModel.builder()
                             .withProjectKey(jsonNode.get("fields").get("project").get("key").asText())
                             .withIssueKey(jsonNode.get("key").asText())
                             .withIssueType(jsonNode.get("fields").get("issuetype").get("name").asText())
