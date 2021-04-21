@@ -5,7 +5,6 @@ import com.escuela.releasemanager.config.ReleaseManagerProperties;
 import com.escuela.releasemanager.model.IssueSearchModel;
 import com.escuela.releasemanager.model.ProjectModel;
 import com.escuela.releasemanager.model.ResponseModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,15 +15,16 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class JiraServiceImpl implements JiraService {
 
-    @Autowired
-    RestTemplate restClient;
+    public JiraServiceImpl(RestTemplate restClient,ReleaseManagerProperties properties){
+        this.restClient=restClient;
+        this.properties=properties;
+    }
 
-    @Autowired
+    RestTemplate restClient;
     ReleaseManagerProperties properties;
 
     @Override
@@ -32,9 +32,9 @@ public class JiraServiceImpl implements JiraService {
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(properties.getJiraApiUrl()).path("/rest/api/2/project").build();
         ResponseEntity<ProjectModel[]> responseEntity = restClient.exchange(uriComponents.toUriString(), HttpMethod.GET,
                 new HttpEntity<>(extractAuthHeader()), ProjectModel[].class);
-        ResponseModel reponse = new ResponseModel();
-        reponse.setData(Arrays.asList(responseEntity.getBody()));
-        return reponse;
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setData(Arrays.asList(responseEntity.getBody()));
+        return responseModel;
     }
 
     @Override
