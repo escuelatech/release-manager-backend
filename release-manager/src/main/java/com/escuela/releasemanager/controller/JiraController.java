@@ -31,4 +31,10 @@ public class JiraController {
                                                                     @RequestParam(name = "labels") String labels) {
         return ResponseEntity.ok(jiraService.getProjectIssuesByLabel(project, labels));
     }
+
+    @GetMapping("/release/issues/bylabel/{project}/{label}")
+    public ResponseEntity<IssueSearchModel> getProjectReleaseIssuesByLabel(@PathVariable String project,
+                                                                    @PathVariable String label) {
+        return ResponseEntity.ok(jiraService.getProjectIssuesByLabel(project, label));
+    }
 }
