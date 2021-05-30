@@ -1,10 +1,13 @@
 package com.escuela.releasemanager.controller;
 
 import com.escuela.releasemanager.db.models.ReleaseInfo;
+import com.escuela.releasemanager.jpa.repositories.ReleaseRepository;
 import com.escuela.releasemanager.model.ResponseModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +21,22 @@ public class ReleaseController {
 //        return ResponseEntity.ok(new ArrayList<String>());
 //    }
 
+    @Autowired
+    ReleaseRepository releaseRepository;
+
+
     @PostMapping("/create/release")
-    ResponseEntity<?> newEmployee(@RequestBody ReleaseInfo newEmployee) {
-        return ResponseEntity.ok(new ArrayList<String>());
+    ResponseEntity<ResponseModel> newEmployee(@RequestBody ReleaseInfo releaseInfo) {
+        releaseRepository.save(releaseInfo);
+        ResponseModel responseModel=new ResponseModel();
+        responseModel.setData("Success");
+        responseModel.setResponseCode("200");
+        return ResponseEntity.ok(responseModel);
+    }
+
+    @GetMapping("/get/all/releases")
+    ResponseEntity<?> getAllReleases() {
+        return ResponseEntity.ok(releaseRepository.findAll());
     }
 
 //    @PutMapping("/employees/{id}")

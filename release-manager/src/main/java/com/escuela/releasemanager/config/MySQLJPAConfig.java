@@ -21,8 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.escuela.releasemanager",
-        entityManagerFactoryRef = "mysqlEntityManagerFactory", transactionManagerRef = "mysqlTransactionManager")
+@EnableJpaRepositories(basePackages = "com.escuela.releasemanager.jpa.repositories",entityManagerFactoryRef = "mysqlEntityManagerFactory", transactionManagerRef = "mysqlTransactionManager")
 public
 class MySQLJPAConfig {
 
@@ -41,33 +40,32 @@ class MySQLJPAConfig {
         vendorAdapter.setGenerateDdl(true);
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(mysqlDataSource());
-        em.setPackagesToScan("com.data.migration.datamigration.mysql.db.models");
+        em.setPackagesToScan("com.escuela.releasemanager.db.models");
         em.setJpaVendorAdapter(vendorAdapter);
 //        em.setJpaProperties(additionalProperties());
         return em;
     }
 
 
-//    @Bean("mysqlDataSource")
-//    public
-//    DataSource mysqlDataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setUrl(" jdbc:postgresql://localhost/escuela_database");
-//        dataSource.setUsername("escuela_user");
-//        dataSource.setPassword("escuela_password");
-//        return dataSource;
-//    }
-
     @Bean("mysqlDataSource")
     public DataSource mysqlDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/escuela_database?serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/zzvwoitf_escuela_portal?serverTimezone=UTC");
         dataSource.setUsername("root");
         dataSource.setPassword("root123");
         return dataSource;
     }
 
+//    @Bean("mysqlDataSource")
+//    public DataSource mysqlDataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+////        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/zzvwoitf_escuela_portal");
+//        dataSource.setUsername("zzvwoitf_webuser");
+//        dataSource.setPassword("Roundrock2021*");
+//        return dataSource;
+//    }
 
     @Bean("mysqlTransactionManager")
     public

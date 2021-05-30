@@ -1,30 +1,39 @@
 package com.escuela.releasemanager.controller;
 
+import com.escuela.releasemanager.db.models.RegisterUser;
 import com.escuela.releasemanager.db.models.ReleaseInfo;
+import com.escuela.releasemanager.jpa.repositories.UserRepository;
 import com.escuela.releasemanager.model.ResponseModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/user")
 public class UserRegistrationController {
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/getall")
-    ResponseEntity<List<?>> getAllUsers() {
-        return ResponseEntity.ok(new ArrayList<String>());
+    ResponseEntity<ResponseModel> getAllUsers() {
+        ResponseModel responseModel=new ResponseModel();
+        responseModel.setData(userRepository.findAll());
+        return ResponseEntity.ok(responseModel);
     }
 
     @PostMapping("/register")
-    ResponseEntity<?> registerUser(@RequestBody Object newEmployee) {
-        return ResponseEntity.ok(new ArrayList<String>());
+    ResponseEntity<?> registerUser(@RequestBody RegisterUser registerUser) {
+        userRepository.save(registerUser);
+        ResponseModel responseModel=new ResponseModel();
+        responseModel.setData("Success");
+        responseModel.setResponseCode("200");
+//        return ResponseEntity.ok(responseModel);
+        return ResponseEntity.ok(responseModel);
     }
 
 //    @PutMapping("/employees/{id}")
